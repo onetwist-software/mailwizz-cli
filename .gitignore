@@ -1,0 +1,17 @@
+# Build artifacts
+/bin/
+/dist/
+/mailwizz-cli
+/mailwizz-cli-gen
+
+# Go
+*.test
+*.out
+coverage.txt
+coverage.html
+
+# Editor/OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

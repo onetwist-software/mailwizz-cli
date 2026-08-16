@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Fixture API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/widgets": {
+      "get": {
+        "operationId": "viewWidgets",
+        "summary": "View widgets",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["active", "inactive"]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "ok" }
+        }
+      },
+      "post": {
+        "operationId": "createWidget",
+        "summary": "Create widget",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": { "$ref": "#/components/schemas/WidgetRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "created" }
+        }
+      }
+    },
+    "/widgets/{widget_id}": {
+      "get": {
+        "operationId": "viewWidget",
+        "summary": "View widget",
+        "parameters": [
+          {
+            "name": "widget_id",
+            "in": "path",
+            "description": "Unique id of the widget",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "ok" }
+        }
+      }
+    },
+    "/widgets/{widget_id}/activate": {
+      "put": {
+        "operationId": "activateWidget",
+        "summary": "Activate widget",
+        "parameters": [
+          {
+            "name": "widget_id",
+            "in": "path",
+            "description": "Unique id of the widget",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "ok" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BaseWidgetRequest": {
+        "properties": {
+          "general[name]": {
+            "description": "The name of the widget",
+            "type": "string"
+          },
+          "general[color]": {
+            "description": "The color of the widget",
+            "type": "string"
+          }
+        }
+      },
+      "WidgetRequest": {
+        "required": ["general[name]"],
+        "type": "object",
+        "allOf": [
+          { "$ref": "#/components/schemas/BaseWidgetRequest" }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+version: "2"
+
+# All linters are enabled by default. The two below are excluded because
+# golangci-lint marks them as deprecated in favor of a direct replacement
+# that is already covered by "all": gomodguard -> gomodguard_v2, wsl -> wsl_v5.
+linters:
+  default: all
+  disable:
+    - gomodguard
+    - wsl
+    # noinlineerr forbids the standard "if err := f(); err != nil" idiom used
+    # throughout the Go standard library and virtually all idiomatic Go code.
+    # Banning it would force less readable two-line error checks everywhere,
+    # which contradicts writing simple, conventional Go.
+    - noinlineerr
+    # exhaustruct requires every field of every struct literal to be set
+    # explicitly, including third-party structs such as http.Client or
+    # cli.Command that have dozens of optional fields. Relying on zero
+    # values for the fields we don't set is normal, idiomatic Go.
+    - exhaustruct
+
+  settings:
+    depguard:
+      rules:
+        main:
+          list-mode: lax
+          deny:
+            - pkg: io/ioutil
+              desc: deprecated, use io or os instead
+            - pkg: github.com/pkg/errors
+              desc: use the standard library errors package instead
+    tagliatelle:
+      case:
+        rules:
+          json: snake
+          yaml: snake
+    varnamelen:
+      # Short receiver/loop/index names are idiomatic Go and are used
+      # throughout this codebase (e.g. c *Client, i int, k, v).
+      ignore-names:
+        - err
+        - id
+        - ok
+        - db
+      ignore-decls:
+        - i int
+        - k string
+        - v string
+        - w io.Writer
+        - r io.Reader
+    revive:
+      rules:
+        - name: exported
+
+  exclusions:
+    presets:
+      - comments
+      - std-error-handling
+    rules:
+      # Generated code is produced by our own templates and reviewed at
+      # generation time, not written by hand; do not lint it like
+      # hand-written code.
+      - path: internal/generated/
+        linters:
+          - all
+      # Tests commonly use longer, descriptive names, table-driven
+      # duplication, and magic numbers for fixture data.
+      - path: _test\.go
+        linters:
+          - cyclop
+          - dupl
+          - funlen
+          - goconst
+          - lll
+          - mnd
+          - varnamelen
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

@@ -1,0 +1,128 @@
+# overrides.yaml is a small, hand-maintained set of corrections applied on
+# top of what the generator infers from openapi/schema.json.
+#
+# It exists for two reasons:
+#
+#  1. Naming: most operations fit a simple rule (see DefaultCommandName and
+#     DefaultCommandPath in defaults.go), but a handful of "action" style
+#     endpoints (copy, pause-unpause, stats, tracking, search-by-*, ...)
+#     read better as an explicit leaf command than as a generic CRUD verb
+#     nested one level deeper than necessary.
+#
+#  2. Pagination: schema.json does not declare "page"/"per_page" query
+#     parameters on any GET collection endpoint, even though MailWizz's
+#     real API accepts them. add_query_params injects the parameters
+#     defined under query_param_definitions below.
+#
+# Every operation referenced here must exist in openapi/schema.json;
+# ApplyOverrides fails otherwise, so a schema update that removes or
+# renames an operation is caught immediately instead of silently
+# producing a dangling entry.
+
+query_param_definitions:
+  page:
+    description: Page number to fetch, starting at 1.
+  per_page:
+    description: Number of records to fetch per page.
+
+operations:
+  # Campaigns: action-style endpoints become a direct leaf command under
+  # "campaigns" instead of nesting one more level with a generic verb.
+  copyCampaign:
+    command_path: [campaigns]
+    command_name: copy
+  pauseunpauseCampaign:
+    command_path: [campaigns]
+    command_name: pause-unpause
+  markSentCampaign:
+    command_path: [campaigns]
+    command_name: mark-sent
+  campaignStats:
+    command_path: [campaigns]
+    command_name: stats
+
+  # Campaigns: tracking endpoints grouped under their own subcommand.
+  recordCampaignTrackOpening:
+    command_path: [campaigns, tracking]
+    command_name: track-opening
+  recordCampaignTrackUnsubscribe:
+    command_path: [campaigns, tracking]
+    command_name: track-unsubscribe
+  viewCampaignTrackUrl:
+    command_path: [campaigns, tracking]
+    command_name: track-url
+
+  # Campaigns collection endpoints: add pagination.
+  viewCampaigns:
+    add_query_params: [page, per_page]
+  viewCampaignBounces:
+    add_query_params: [page, per_page]
+  viewCampaignComplaints:
+    add_query_params: [page, per_page]
+  viewCampaignDeliveryLogs:
+    add_query_params: [page, per_page]
+  viewCampaignUnsubscribes:
+    add_query_params: [page, per_page]
+
+  # Countries: the zones lookup is a direct leaf command, not a nested
+  # "list" under its own "zones" group.
+  countryZones:
+    command_path: [countries]
+    command_name: zones
+  viewCountries:
+    add_query_params: [page, per_page]
+
+  # Lists: copy is a direct leaf command, same reasoning as campaigns.
+  copyList:
+    command_path: [lists]
+    command_name: copy
+  viewLists:
+    add_query_params: [page, per_page]
+
+  # List fields: the types lookup is a direct leaf command under "fields".
+  listFieldsTypes:
+    command_path: [lists, fields]
+    command_name: types
+  viewListFields:
+    add_query_params: [page, per_page]
+
+  # List segments: the condition operators lookup is a direct leaf
+  # command under "segments".
+  listSegmentsOperators:
+    command_path: [lists, segments]
+    command_name: condition-operators
+  viewListSegments:
+    add_query_params: [page, per_page]
+
+  # List subscribers: unsubscribe and search endpoints are direct leaf
+  # commands under "subscribers" rather than nesting nested under their
+  # own literal path segment.
+  unsubscribeListSubscriber:
+    command_path: [lists, subscribers]
+    command_name: unsubscribe
+  unsubscribeByEmailFromAllLists:
+    command_path: [lists, subscribers]
+    command_name: unsubscribe-by-email-from-all-lists
+  searchByEmailListSubscriber:
+    command_path: [lists, subscribers]
+    command_name: search-by-email
+  searchByCustomFieldsListSubscriber:
+    command_path: [lists, subscribers]
+    command_name: search-by-custom-fields
+    add_query_params: [page, per_page]
+  searchByEmailInAllLists:
+    command_path: [lists, subscribers]
+    command_name: search-by-email-in-all-lists
+    add_query_params: [page, per_page]
+  viewListSubscribers:
+    add_query_params: [page, per_page]
+
+  # Templates and transactional emails: collection pagination.
+  viewTemplates:
+    add_query_params: [page, per_page]
+  viewTransactionalEmails:
+    add_query_params: [page, per_page]
+
+  # Delivery servers: collection pagination.
+  viewDeliveryServers:
+    add_query_params: [page, per_page]

@@ -1,0 +1,53 @@
+version: 2
+
+project_name: mailwizz-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: mailwizz-cli
+    main: ./cmd/mailwizz-cli
+    binary: mailwizz-cli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+
+archives:
+  - id: mailwizz-cli
+    ids:
+      - mailwizz-cli
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    files:
+      - README.md
+      - LICENSE
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+
+release:
+  github:
+    owner: onetwist-software
+    name: mailwizz-cli

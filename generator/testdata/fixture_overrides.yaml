@@ -1,0 +1,10 @@
+operations:
+  activateWidget:
+    command_path: [widgets]
+    command_name: activate
+  viewWidgets:
+    add_query_params: [page]
+
+query_param_definitions:
+  page:
+    description: Page number to fetch, starting at 1.
