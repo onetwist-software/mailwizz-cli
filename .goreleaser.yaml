@@ -47,6 +47,25 @@ changelog:
       - "^ci:"
       - "^chore:"
 
+homebrew_casks:
+  - name: mailwizz-cli
+    repository:
+      owner: onetwist-software
+      name: homebrew-mailwizz-cli
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Casks
+    binaries:
+      - mailwizz-cli
+    homepage: "https://github.com/onetwist-software/mailwizz-cli"
+    description: "CLI client for the MailWizz REST API"
+    license: "MIT"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/mailwizz-cli"]
+          end
+
 release:
   github:
     owner: onetwist-software
