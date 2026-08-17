@@ -49,7 +49,7 @@ func widgetsListCommand() *cli.Command {
 					case "", "active", "inactive":
 						return nil
 					default:
-						return fmt.Errorf("status must be one of: active, inactive")
+						return fmt.Errorf("%s", "status must be one of: active, inactive")
 					}
 				},
 			},

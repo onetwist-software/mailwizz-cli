@@ -162,7 +162,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "AFTER-SUBSCRIBE", "AFTER-CAMPAIGN-OPEN":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-autoresponder-event must be one of: AFTER-SUBSCRIBE, AFTER-CAMPAIGN-OPEN")
+						return fmt.Errorf("%s", "campaign-options-autoresponder-event must be one of: AFTER-SUBSCRIBE, AFTER-CAMPAIGN-OPEN")
 					}
 				},
 			},
@@ -178,7 +178,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "minute", "hour", "day", "week", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-autoresponder-time-unit must be one of: minute, hour, day, week, month, year")
+						return fmt.Errorf("%s", "campaign-options-autoresponder-time-unit must be one of: minute, hour, day, week, month, year")
 					}
 				},
 			},
@@ -192,7 +192,15 @@ func campaignsCreateCommand() *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "campaign-options-cronjob-enabled",
-				Usage: "Enable/Disable advanced recurring. Only for regular campaigns",
+				Usage: "Enable/Disable advanced recurring. Only for regular campaigns (allowed values: 0, 1)",
+				Validator: func(v string) error {
+					switch v {
+					case "", "0", "1":
+						return nil
+					default:
+						return fmt.Errorf("%s", "campaign-options-cronjob-enabled must be one of: 0, 1")
+					}
+				},
 			},
 			&cli.StringFlag{
 				Name:  "campaign-options-email-stats",
@@ -206,7 +214,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-json-feed must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-json-feed must be one of: yes, no")
 					}
 				},
 			},
@@ -218,7 +226,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-plain-text-email must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-plain-text-email must be one of: yes, no")
 					}
 				},
 			},
@@ -234,7 +242,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-url-tracking must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-url-tracking must be one of: yes, no")
 					}
 				},
 			},
@@ -246,7 +254,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-xml-feed must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-xml-feed must be one of: yes, no")
 					}
 				},
 			},
@@ -272,7 +280,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "pending-sending", "draft", "paused":
 						return nil
 					default:
-						return fmt.Errorf("campaign-status must be one of: pending-sending, draft, paused")
+						return fmt.Errorf("%s", "campaign-status must be one of: pending-sending, draft, paused")
 					}
 				},
 			},
@@ -293,7 +301,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-template-auto-plain-text must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-template-auto-plain-text must be one of: yes, no")
 					}
 				},
 			},
@@ -309,7 +317,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-template-inline-css must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-template-inline-css must be one of: yes, no")
 					}
 				},
 			},
@@ -329,7 +337,7 @@ func campaignsCreateCommand() *cli.Command {
 					case "", "regular", "autoresponder":
 						return nil
 					default:
-						return fmt.Errorf("campaign-type must be one of: regular, autoresponder")
+						return fmt.Errorf("%s", "campaign-type must be one of: regular, autoresponder")
 					}
 				},
 			},
@@ -426,7 +434,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "AFTER-SUBSCRIBE", "AFTER-CAMPAIGN-OPEN":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-autoresponder-event must be one of: AFTER-SUBSCRIBE, AFTER-CAMPAIGN-OPEN")
+						return fmt.Errorf("%s", "campaign-options-autoresponder-event must be one of: AFTER-SUBSCRIBE, AFTER-CAMPAIGN-OPEN")
 					}
 				},
 			},
@@ -442,7 +450,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "minute", "hour", "day", "week", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-autoresponder-time-unit must be one of: minute, hour, day, week, month, year")
+						return fmt.Errorf("%s", "campaign-options-autoresponder-time-unit must be one of: minute, hour, day, week, month, year")
 					}
 				},
 			},
@@ -456,7 +464,15 @@ func campaignsUpdateCommand() *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "campaign-options-cronjob-enabled",
-				Usage: "Enable/Disable advanced recurring. Only for regular campaigns",
+				Usage: "Enable/Disable advanced recurring. Only for regular campaigns (allowed values: 0, 1)",
+				Validator: func(v string) error {
+					switch v {
+					case "", "0", "1":
+						return nil
+					default:
+						return fmt.Errorf("%s", "campaign-options-cronjob-enabled must be one of: 0, 1")
+					}
+				},
 			},
 			&cli.StringFlag{
 				Name:  "campaign-options-email-stats",
@@ -470,7 +486,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-json-feed must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-json-feed must be one of: yes, no")
 					}
 				},
 			},
@@ -482,7 +498,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-plain-text-email must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-plain-text-email must be one of: yes, no")
 					}
 				},
 			},
@@ -498,7 +514,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-url-tracking must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-url-tracking must be one of: yes, no")
 					}
 				},
 			},
@@ -510,7 +526,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-options-xml-feed must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-options-xml-feed must be one of: yes, no")
 					}
 				},
 			},
@@ -534,7 +550,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "pending-sending", "draft", "paused":
 						return nil
 					default:
-						return fmt.Errorf("campaign-status must be one of: pending-sending, draft, paused")
+						return fmt.Errorf("%s", "campaign-status must be one of: pending-sending, draft, paused")
 					}
 				},
 			},
@@ -554,7 +570,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-template-auto-plain-text must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-template-auto-plain-text must be one of: yes, no")
 					}
 				},
 			},
@@ -570,7 +586,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("campaign-template-inline-css must be one of: yes, no")
+						return fmt.Errorf("%s", "campaign-template-inline-css must be one of: yes, no")
 					}
 				},
 			},
@@ -590,7 +606,7 @@ func campaignsUpdateCommand() *cli.Command {
 					case "", "regular", "autoresponder":
 						return nil
 					default:
-						return fmt.Errorf("campaign-type must be one of: regular, autoresponder")
+						return fmt.Errorf("%s", "campaign-type must be one of: regular, autoresponder")
 					}
 				},
 			},
@@ -879,7 +895,7 @@ func campaignsBouncesCreateCommand() *cli.Command {
 					case "", "internal", "soft", "hard":
 						return nil
 					default:
-						return fmt.Errorf("bounce-type must be one of: internal, soft, hard")
+						return fmt.Errorf("%s", "bounce-type must be one of: internal, soft, hard")
 					}
 				},
 			},
@@ -1696,7 +1712,7 @@ func listsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("notifications-subscribe must be one of: yes, no")
+						return fmt.Errorf("%s", "notifications-subscribe must be one of: yes, no")
 					}
 				},
 			},
@@ -1712,7 +1728,7 @@ func listsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("notifications-unsubscribe must be one of: yes, no")
+						return fmt.Errorf("%s", "notifications-unsubscribe must be one of: yes, no")
 					}
 				},
 			},
@@ -1829,7 +1845,7 @@ func listsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("notifications-subscribe must be one of: yes, no")
+						return fmt.Errorf("%s", "notifications-subscribe must be one of: yes, no")
 					}
 				},
 			},
@@ -1845,7 +1861,7 @@ func listsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("notifications-unsubscribe must be one of: yes, no")
+						return fmt.Errorf("%s", "notifications-unsubscribe must be one of: yes, no")
 					}
 				},
 			},
@@ -2112,7 +2128,7 @@ func listsFieldsCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("required must be one of: yes, no")
+						return fmt.Errorf("%s", "required must be one of: yes, no")
 					}
 				},
 			},
@@ -2136,7 +2152,7 @@ func listsFieldsCreateCommand() *cli.Command {
 					case "", "visible", "hidden", "none":
 						return nil
 					default:
-						return fmt.Errorf("visibility must be one of: visible, hidden, none")
+						return fmt.Errorf("%s", "visibility must be one of: visible, hidden, none")
 					}
 				},
 			},
@@ -2240,7 +2256,7 @@ func listsFieldsUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("required must be one of: yes, no")
+						return fmt.Errorf("%s", "required must be one of: yes, no")
 					}
 				},
 			},
@@ -2264,7 +2280,7 @@ func listsFieldsUpdateCommand() *cli.Command {
 					case "", "visible", "hidden", "none":
 						return nil
 					default:
-						return fmt.Errorf("visibility must be one of: visible, hidden, none")
+						return fmt.Errorf("%s", "visibility must be one of: visible, hidden, none")
 					}
 				},
 			},
@@ -2481,7 +2497,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "open", "click":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-0-action must be one of: open, click")
+						return fmt.Errorf("%s", "campaign-conditions-0-action must be one of: open, click")
 					}
 				},
 			},
@@ -2497,7 +2513,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "lte", "lt", "gte", "gt", "eq":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-0-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
+						return fmt.Errorf("%s", "campaign-conditions-0-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
 					}
 				},
 			},
@@ -2509,7 +2525,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "day", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-0-time-unit must be one of: day, month, year")
+						return fmt.Errorf("%s", "campaign-conditions-0-time-unit must be one of: day, month, year")
 					}
 				},
 			},
@@ -2525,7 +2541,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "open", "click":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-1-action must be one of: open, click")
+						return fmt.Errorf("%s", "campaign-conditions-1-action must be one of: open, click")
 					}
 				},
 			},
@@ -2541,7 +2557,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "lte", "lt", "gte", "gt", "eq":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-1-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
+						return fmt.Errorf("%s", "campaign-conditions-1-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
 					}
 				},
 			},
@@ -2553,7 +2569,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "day", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-1-time-unit must be one of: day, month, year")
+						return fmt.Errorf("%s", "campaign-conditions-1-time-unit must be one of: day, month, year")
 					}
 				},
 			},
@@ -2569,7 +2585,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "open", "click":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-2-action must be one of: open, click")
+						return fmt.Errorf("%s", "campaign-conditions-2-action must be one of: open, click")
 					}
 				},
 			},
@@ -2585,7 +2601,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "lte", "lt", "gte", "gt", "eq":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-2-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
+						return fmt.Errorf("%s", "campaign-conditions-2-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
 					}
 				},
 			},
@@ -2597,7 +2613,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "day", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-2-time-unit must be one of: day, month, year")
+						return fmt.Errorf("%s", "campaign-conditions-2-time-unit must be one of: day, month, year")
 					}
 				},
 			},
@@ -2653,7 +2669,7 @@ func listsSegmentsCreateCommand() *cli.Command {
 					case "", "any", "all":
 						return nil
 					default:
-						return fmt.Errorf("operator-match must be one of: any, all")
+						return fmt.Errorf("%s", "operator-match must be one of: any, all")
 					}
 				},
 			},
@@ -2728,7 +2744,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "open", "click":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-0-action must be one of: open, click")
+						return fmt.Errorf("%s", "campaign-conditions-0-action must be one of: open, click")
 					}
 				},
 			},
@@ -2744,7 +2760,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "lte", "lt", "gte", "gt", "eq":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-0-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
+						return fmt.Errorf("%s", "campaign-conditions-0-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
 					}
 				},
 			},
@@ -2756,7 +2772,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "day", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-0-time-unit must be one of: day, month, year")
+						return fmt.Errorf("%s", "campaign-conditions-0-time-unit must be one of: day, month, year")
 					}
 				},
 			},
@@ -2772,7 +2788,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "open", "click":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-1-action must be one of: open, click")
+						return fmt.Errorf("%s", "campaign-conditions-1-action must be one of: open, click")
 					}
 				},
 			},
@@ -2788,7 +2804,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "lte", "lt", "gte", "gt", "eq":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-1-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
+						return fmt.Errorf("%s", "campaign-conditions-1-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
 					}
 				},
 			},
@@ -2800,7 +2816,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "day", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-1-time-unit must be one of: day, month, year")
+						return fmt.Errorf("%s", "campaign-conditions-1-time-unit must be one of: day, month, year")
 					}
 				},
 			},
@@ -2816,7 +2832,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "open", "click":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-2-action must be one of: open, click")
+						return fmt.Errorf("%s", "campaign-conditions-2-action must be one of: open, click")
 					}
 				},
 			},
@@ -2832,7 +2848,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "lte", "lt", "gte", "gt", "eq":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-2-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
+						return fmt.Errorf("%s", "campaign-conditions-2-time-comparison-operator must be one of: lte, lt, gte, gt, eq")
 					}
 				},
 			},
@@ -2844,7 +2860,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "day", "month", "year":
 						return nil
 					default:
-						return fmt.Errorf("campaign-conditions-2-time-unit must be one of: day, month, year")
+						return fmt.Errorf("%s", "campaign-conditions-2-time-unit must be one of: day, month, year")
 					}
 				},
 			},
@@ -2900,7 +2916,7 @@ func listsSegmentsUpdateCommand() *cli.Command {
 					case "", "any", "all":
 						return nil
 					default:
-						return fmt.Errorf("operator-match must be one of: any, all")
+						return fmt.Errorf("%s", "operator-match must be one of: any, all")
 					}
 				},
 			},
@@ -3052,7 +3068,7 @@ func listsSubscribersListCommand() *cli.Command {
 					case "", "unconfirmed", "confirmed", "blacklisted", "unsubscribed", "unapproved", "disabled", "moved":
 						return nil
 					default:
-						return fmt.Errorf("status must be one of: unconfirmed, confirmed, blacklisted, unsubscribed, unapproved, disabled, moved")
+						return fmt.Errorf("%s", "status must be one of: unconfirmed, confirmed, blacklisted, unsubscribed, unapproved, disabled, moved")
 					}
 				},
 			},
@@ -3162,7 +3178,7 @@ func listsSubscribersCreateCommand() *cli.Command {
 					case "", "web", "api", "import":
 						return nil
 					default:
-						return fmt.Errorf("details-source must be one of: web, api, import")
+						return fmt.Errorf("%s", "details-source must be one of: web, api, import")
 					}
 				},
 			},
@@ -3174,7 +3190,7 @@ func listsSubscribersCreateCommand() *cli.Command {
 					case "", "unconfirmed", "confirmed", "blacklisted", "unsubscribed", "unapproved", "disabled", "moved":
 						return nil
 					default:
-						return fmt.Errorf("details-status must be one of: unconfirmed, confirmed, blacklisted, unsubscribed, unapproved, disabled, moved")
+						return fmt.Errorf("%s", "details-status must be one of: unconfirmed, confirmed, blacklisted, unsubscribed, unapproved, disabled, moved")
 					}
 				},
 			},
@@ -3246,7 +3262,7 @@ func listsSubscribersUpdateCommand() *cli.Command {
 					case "", "web", "api", "import":
 						return nil
 					default:
-						return fmt.Errorf("details-source must be one of: web, api, import")
+						return fmt.Errorf("%s", "details-source must be one of: web, api, import")
 					}
 				},
 			},
@@ -3258,7 +3274,7 @@ func listsSubscribersUpdateCommand() *cli.Command {
 					case "", "unconfirmed", "confirmed", "blacklisted", "unsubscribed", "unapproved", "disabled", "moved":
 						return nil
 					default:
-						return fmt.Errorf("details-status must be one of: unconfirmed, confirmed, blacklisted, unsubscribed, unapproved, disabled, moved")
+						return fmt.Errorf("%s", "details-status must be one of: unconfirmed, confirmed, blacklisted, unsubscribed, unapproved, disabled, moved")
 					}
 				},
 			},
@@ -3631,7 +3647,7 @@ func templatesCreateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("template-inline-css must be one of: yes, no")
+						return fmt.Errorf("%s", "template-inline-css must be one of: yes, no")
 					}
 				},
 			},
@@ -3691,7 +3707,7 @@ func templatesUpdateCommand() *cli.Command {
 					case "", "yes", "no":
 						return nil
 					default:
-						return fmt.Errorf("template-inline-css must be one of: yes, no")
+						return fmt.Errorf("%s", "template-inline-css must be one of: yes, no")
 					}
 				},
 			},

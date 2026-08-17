@@ -215,9 +215,17 @@ func schemaEnum(ref *openapi3.SchemaRef) []string {
 	values := make([]string, 0, len(ref.Value.Enum))
 	seen := make(map[string]bool, len(ref.Value.Enum))
 
-	for _, v := range ref.Value.Enum {
-		value, ok := v.(string)
-		if !ok || seen[value] {
+	for _, rawValue := range ref.Value.Enum {
+		// Enum values are decoded from JSON, so scalars other than strings
+		// (e.g. the integers 0/1 for campaign[options][cronjob_enabled])
+		// show up as float64/bool. Stringify them so they still produce a
+		// flag validator instead of being silently dropped.
+		value, ok := rawValue.(string)
+		if !ok {
+			value = fmt.Sprint(rawValue)
+		}
+
+		if seen[value] {
 			// schema.json has at least one enum with a literal duplicate
 			// value (campaign[options][autoresponder_event]); skip repeats
 			// so generated code (e.g. a switch statement) stays valid.

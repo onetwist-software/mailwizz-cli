@@ -153,7 +153,10 @@ func renderEnumValidator(out *codeWriter, field RequestField) {
 	out.printf("\t\t\t\t\tcase \"\", %s:\n", quotedList(field.Enum))
 	out.writeString("\t\t\t\t\t\treturn nil\n")
 	out.writeString("\t\t\t\t\tdefault:\n")
-	out.printf("\t\t\t\t\t\treturn fmt.Errorf(%q)\n", errMsg)
+	// Pass errMsg as an argument rather than interpolating it into the format
+	// string literal: an enum value containing a literal "%" would otherwise
+	// produce generated code that fails go vet's printf check.
+	out.printf("\t\t\t\t\t\treturn fmt.Errorf(\"%%s\", %q)\n", errMsg)
 	out.writeString("\t\t\t\t\t}\n")
 	out.writeString("\t\t\t\t},\n")
 }
