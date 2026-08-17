@@ -13,6 +13,13 @@ run `task generate`, and the CLI picks up the change.
 
 ## Installation
 
+### Homebrew (macOS and Linux)
+
+```sh
+brew tap onetwist-software/mailwizz-cli
+brew install --cask mailwizz-cli
+```
+
 ### Prebuilt binaries
 
 Every [release](https://github.com/onetwist-software/mailwizz-cli/releases) publishes binaries for
@@ -204,7 +211,8 @@ binaries for macOS, Linux, and Windows on amd64 and arm64.
   lints, tests, and builds.
 - `.github/workflows/release.yml` runs GoReleaser whenever a tag matching `v*` is pushed (e.g. `git
   tag v0.1.0 && git push origin v0.1.0`), publishing archives, checksums, and a changelog to a GitHub
-  Release.
+  Release, and pushing an updated Homebrew Cask to
+  [onetwist-software/homebrew-mailwizz-cli](https://github.com/onetwist-software/homebrew-mailwizz-cli).
 - `task release:check` validates `.goreleaser.yaml` locally.
 - `task release:snapshot` builds every platform/arch locally into `dist/` without publishing, useful
   for testing a packaging change before tagging a release.
