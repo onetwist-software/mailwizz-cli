@@ -28,7 +28,7 @@ put `mailwizz-cli` on your `PATH`.
 
 ### Using Go
 
-Requires Go 1.25 or newer.
+Requires Go 1.26 or newer.
 
 ```sh
 go install github.com/onetwist-software/mailwizz-cli/cmd/mailwizz-cli@latest
