@@ -4,7 +4,7 @@ go 1.26.6
 
 require (
 	github.com/getkin/kin-openapi v0.149.0
-	github.com/urfave/cli/v3 v3.11.0
+	github.com/urfave/cli/v3 v3.13.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
