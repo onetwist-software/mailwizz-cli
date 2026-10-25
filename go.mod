@@ -3,7 +3,7 @@ module github.com/onetwist-software/mailwizz-cli
 go 1.26.6
 
 require (
-	github.com/getkin/kin-openapi v0.149.0
+	github.com/getkin/kin-openapi v0.152.0
 	github.com/urfave/cli/v3 v3.14.0
 	gopkg.in/yaml.v3 v3.0.1
 )
